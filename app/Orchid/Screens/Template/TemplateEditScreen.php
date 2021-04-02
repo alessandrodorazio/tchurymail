@@ -59,6 +59,7 @@ class TemplateEditScreen extends Screen {
             Button::make ('Create post')->icon ('pencil')->method ('createOrUpdate')->canSee (!$this->exists),
 
             Button::make ('Update')->icon ('note')->method ('createOrUpdate')->canSee ($this->exists),
+            Button::make ('Duplicate')->icon ('trash')->method ('duplicate')->canSee ($this->exists),
 
             Button::make ('Remove')->icon ('trash')->method ('remove')->canSee ($this->exists),
 
@@ -118,5 +119,14 @@ class TemplateEditScreen extends Screen {
 
     public function preview (Template $template) {
         return redirect ()->route ('mail_preview', ['uuid' => $template->secret_api]);
+    }
+
+    public function duplicate (Template $template) {
+        $replicate = $template->replicate ();
+        $replicate->name = $replicate->name . ' copy';
+        $replicate->secret_api = \Illuminate\Support\Str::uuid ();
+        $replicate->save ();
+
+        return redirect ()->route ('platform.templates.list');
     }
 }
