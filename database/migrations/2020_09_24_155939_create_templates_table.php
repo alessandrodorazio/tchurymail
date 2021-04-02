@@ -16,6 +16,8 @@ class CreateTemplatesTable extends Migration
         Schema::create('templates', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('subject')->nullable();
+            $table->longText('head')->nullable();
             $table->longText('content');
             $table->bigInteger('type_id')->unsigned()->nullable();
             $table->bigInteger('header_id')->unsigned()->nullable();

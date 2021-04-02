@@ -1,34 +1,34 @@
 <?php
 
-namespace App\Mail;
+    namespace App\Mail;
 
-use Asahasrabuddhe\LaravelMJML\Mail\Mailable;
-use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
+    use Asahasrabuddhe\LaravelMJML\Mail\Mailable;
+    use Illuminate\Bus\Queueable;
+    use Illuminate\Queue\SerializesModels;
 
-class MailDefault extends Mailable
-{
-    use Queueable, SerializesModels;
-    public $content, $header, $footer;
+    class MailDefault extends Mailable {
+        use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct($content)
-    {
-        //
-        $this->content = $content;
+        public $content, $subject;
+
+        /**
+         * Create a new message instance.
+         *
+         * @return void
+         */
+        public function __construct ($subject, $content) {
+            //
+            $this->subject;
+            $this->content = $content;
+        }
+
+        /**
+         * Build the message.
+         *
+         * @return $this
+         */
+        public function build () {
+            return $this->subject ($this->subject)
+                        ->mjml ('mail.default', ['content' => $this->content]);
+        }
     }
-
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
-    {
-        return $this->subject("TEST MICROSERVIZIO MAILER: COLLABORAZIONI?")->mjml('mail.default', ['content' => $this->content]);
-    }
-}

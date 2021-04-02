@@ -15,16 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{uuid}', function ($uuid) {
+Route::get ('/{uuid}', function ($uuid) {
     $email = new Email;
-    $template = Template::where('secret_api', $uuid)->first();
+    $template = Template::where ('secret_api', $uuid)->first ();
     $email->template_id = $template->id;
-    $content = $email->constructEmailContent((object) []);
-    return view('mail_preview', compact('content'));
-})->name('mail_preview');
+    $content = $email->constructEmailContent ((object)[]);
 
-Route::post('/tokens/create', function (Request $request) {
-    $token = $request->user()->createToken($request->token_name);
+    return view ('mail_preview', compact ('content'));
+})->name ('mail_preview');
 
-    return ['token' => $token->plainTextToken];
-});
+

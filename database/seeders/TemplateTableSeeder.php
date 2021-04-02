@@ -20,6 +20,7 @@ class TemplateTableSeeder extends Seeder
         Template::create(
             [
                 'name' => 'Email1',
+                'subject' => 'Welcome',
                 'content' => '<mj-section background-color="#fff"><mj-column><mj-text align="center"><h2>MJML Rockss!</h2></mj-text></mj-column><mj-column><mj-image width="200" src="http://placehold.it/200x200"></mj-image></mj-column></mj-section>',
                 'type_id' => TemplateType::where('name', 'Content')->first()->id,
                 'secret_api' => Str::uuid()
