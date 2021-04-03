@@ -3,6 +3,7 @@
 namespace App\Orchid\Layouts\Template;
 
 use App\Models\Template;
+use App\Models\TemplateCategory;
 use App\Models\TemplateType;
 use Orchid\Screen\Field;
 use Orchid\Screen\Fields\Input;
@@ -29,23 +30,31 @@ class TemplateEditLayout extends Rows {
         return [
             Input::make ('template.name')->title ('Name*')->placeholder ('What is the name of this email?'),
 
-            Input::make ('template.subject')->title ('Subject*')->placeholder ('The subject of the email'),
+            Input::make ('template.subject')
+                 ->title ('Subject*')
+                 ->placeholder ('The subject of the email')
+                 ->canSee (!$exists || $template->type->name === "Content")
+            ,
 
             Relation::make ('template.type_id')
                     ->title ('Type*')
                     ->fromModel (TemplateType::class, 'name')
                     ->canSee (!$exists),
 
-            Relation::make ('template.header_id**')
+            Relation::make ('template.category_id')
+                    ->title ('Category*')
+                    ->fromModel (TemplateCategory::class, 'name'),
+
+            Relation::make ('template.header_id')
                     ->canSee (!$exists || $template->type->name === "Content")
-                    ->title ('Header')
+                    ->title ('Header**')
                     ->help ('Only if is a content')
                     ->applyScope ('headerList')
                     ->fromModel (Template::class, 'name'),
 
-            Relation::make ('template.footer_id**')
+            Relation::make ('template.footer_id')
                     ->canSee (!$exists || $template->type->name === "Content")
-                    ->title ('Footer')
+                    ->title ('Footer**')
                     ->help ('Only if is a content')
                     ->applyScope ('footerList')
                     ->fromModel (Template::class, 'name'),

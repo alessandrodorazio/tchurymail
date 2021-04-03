@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Orchid\Layouts\Template;
+namespace App\Orchid\Layouts\TemplateCategory;
 
 use Orchid\Screen\Field;
-use Orchid\Screen\Fields\Code;
+use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Layouts\Rows;
 
-class EditHeadLayout extends Rows {
+class TemplateCategoryEditLayout extends Rows {
     /**
      * Used to create the title of a group of form elements.
      *
@@ -19,10 +19,9 @@ class EditHeadLayout extends Rows {
      *
      * @return Field[]
      */
-    protected function fields(): array {
+    protected function fields (): array {
         return [
-            Code::make('template.head')->title('Add your head tags here')->lineNumbers(),
-
+            Input::make ('tc.name')->title ('Name')->placeholder ('Name your category'),
         ];
     }
 }

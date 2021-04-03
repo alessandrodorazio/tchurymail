@@ -12,6 +12,13 @@ template, and through APIs, you can send these emails, written in **MJML**.
 1. Set mail variables in .env
 2. Run `php artisan migrate --seed`
 3. Start the server
+4. Do a POST request to /api/login with admin@admin.com / password in order to get the API token
+
+## Usage
+
+1. Go to /admin to open the admin panel
+2. Create your template
+3. Send via /api/sendEmail/{secret_api}
 
 ## Roadmap to v1.0
 
@@ -22,14 +29,18 @@ template, and through APIs, you can send these emails, written in **MJML**.
 - [x] Head tags
 - [x] Duplicate template
 - [x] Recover password
-- [ ] Category of template
-- [ ] Multiple email accounts
+- [x] Category of template
+- [x] Attachments
 - [ ] Calendars invitation
+- [ ] Automated tests
+- [ ] Upload images
 
 ### Next major releases
 
-- [ ] Token permissions
+- [ ] Multiple email accounts
 - [ ] Visual builder
+- [ ] Token permissions
+- [ ] Generate token from admin panel
 
 ## Supported tags
 

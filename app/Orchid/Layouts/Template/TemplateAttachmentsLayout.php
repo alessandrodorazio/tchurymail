@@ -3,10 +3,10 @@
 namespace App\Orchid\Layouts\Template;
 
 use Orchid\Screen\Field;
-use Orchid\Screen\Fields\Code;
+use Orchid\Screen\Fields\Upload;
 use Orchid\Screen\Layouts\Rows;
 
-class EditHeadLayout extends Rows {
+class TemplateAttachmentsLayout extends Rows {
     /**
      * Used to create the title of a group of form elements.
      *
@@ -21,8 +21,7 @@ class EditHeadLayout extends Rows {
      */
     protected function fields(): array {
         return [
-            Code::make('template.head')->title('Add your head tags here')->lineNumbers(),
-
+            Upload::make('template.attachments'),
         ];
     }
 }
