@@ -49,7 +49,10 @@ return [
 
     'middleware' => [
         'public'  => ['web'],
-        'private' => ['web', 'platform'],
+        'private' => [
+            'web',
+            'platform',
+        ],
     ],
 
     /*
@@ -67,7 +70,7 @@ return [
     |
     */
 
-    'auth'  => true,
+    'auth' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -112,8 +115,8 @@ return [
     */
 
     'template' => [
-        'header' => null,
-        'footer' => null,
+        'header' => 'brand.header',
+        'footer' => 'brand.footer',
     ],
 
     /*

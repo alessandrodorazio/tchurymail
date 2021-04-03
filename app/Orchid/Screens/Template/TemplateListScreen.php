@@ -31,17 +31,17 @@ class TemplateListScreen extends Screen {
      *
      * @return array
      */
-    public function query (): array {
-        $templates = Template::with ('type', 'category');
-        if ( isset($_GET['type']) ) {
-            $type = TemplateType::where ('name', ucfirst ($_GET['type']))->first ();
-            $templates = $templates->where ('type_id', $type->id);
+    public function query(): array {
+        $templates = Template::with('type', 'category');
+        if( isset($_GET['type']) ) {
+            $type = TemplateType::where('name', ucfirst($_GET['type']))->first();
+            $templates = $templates->where('type_id', $type->id);
         }
-        if ( isset($_GET['category']) ) {
-            $category = TemplateCategory::where ('name', $_GET['category'])->first ();
-            $templates = $templates->where ('category_id', $category->id);
+        if( isset($_GET['category']) ) {
+            $category = TemplateCategory::where('name', $_GET['category'])->first();
+            $templates = $templates->where('category_id', $category->id);
         }
-        $templates = $templates->paginate ();
+        $templates = $templates->paginate();
 
         return ['templates' => $templates];
     }
@@ -51,12 +51,12 @@ class TemplateListScreen extends Screen {
      *
      * @return Action[]
      */
-    public function commandBar (): array {
+    public function commandBar(): array {
         return [
-            Link::make ('Create new')
-                ->icon ('pencil')
-                ->canSee (Auth::user ()->hasAccess ('platform.templates.manage'))
-                ->route ('platform.templates.edit'),
+            Link::make('New')
+                ->icon('plus')
+                ->canSee(Auth::user()->hasAccess('platform.templates.manage'))
+                ->route('platform.templates.edit'),
         ];
     }
 
@@ -65,7 +65,7 @@ class TemplateListScreen extends Screen {
      *
      * @return Layout[]|string[]
      */
-    public function layout (): array {
+    public function layout(): array {
         return [TemplateListLayout::class];
     }
 }

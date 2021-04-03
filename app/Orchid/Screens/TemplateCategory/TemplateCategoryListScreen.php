@@ -27,9 +27,9 @@ class TemplateCategoryListScreen extends Screen {
      *
      * @return array
      */
-    public function query (): array {
+    public function query(): array {
         return [
-            'categories' => TemplateCategory::paginate (),
+            'categories' => TemplateCategory::paginate(),
         ];
     }
 
@@ -38,12 +38,12 @@ class TemplateCategoryListScreen extends Screen {
      *
      * @return \Orchid\Screen\Action[]
      */
-    public function commandBar (): array {
+    public function commandBar(): array {
         return [
-            Link::make ('Create new')
-                ->icon ('pencil')
-                ->canSee (Auth::user ()->hasAccess ('platform.templates.manage'))
-                ->route ('platform.templates.categories.edit'),
+            Link::make('New')
+                ->icon('plus')
+                ->canSee(Auth::user()->hasAccess('platform.templates.manage'))
+                ->route('platform.templates.categories.edit'),
         ];
     }
 
@@ -52,7 +52,7 @@ class TemplateCategoryListScreen extends Screen {
      *
      * @return \Orchid\Screen\Layout[]|string[]
      */
-    public function layout (): array {
+    public function layout(): array {
         return [
             TemplateCategoryListLayout::class,
         ];

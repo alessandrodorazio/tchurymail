@@ -42,7 +42,7 @@ class TemplateEditLayout extends Rows {
                     ->canSee(!$exists),
 
             Relation::make('template.category_id')
-                    ->title('Category')->required()
+                    ->title('Category')
                     ->fromModel(TemplateCategory::class, 'name'),
 
             Relation::make('template.header_id')

@@ -39,7 +39,7 @@ class Email extends Model {
         $this->save();
     }
 
-    public function constructEmailContent($variables) {
+    public function constructEmailContent($variables, $options = []) {
         if( $variables === null ) {
             throw new Exception('Variables not found');
         }
@@ -50,10 +50,15 @@ class Email extends Model {
             '<mjml><mj-head>' . $this->template->head . '</mj-head><mj-body background-color="#eee">' .
             $header->content . $this->template->content . $footer->content . '</mj-body></mjml>';
 
-        return self::replaceVariablesWithContent($content, $variables);
+        return self::replaceVariablesWithContent($content, $variables, $options);
     }
 
-    public static function replaceVariablesWithContent($content, $variables) {
+    public static function replaceVariablesWithContent($content, $variables, $options) {
+        if( array_key_exists("preview", $options) ) {
+            $content =
+                str_replace('{{$', '<span style="background-color: #007bff; color: white; padding: 3px;">', $content);
+            $content = str_replace('}}', '</span>', $content);
+        }
         $ref = new ReflectionObject($variables);
         foreach( $ref->getProperties() as $prop ) {
             $content = str_replace('{{$' . $prop->getName() . '}}', $prop->getValue($variables), $content);
