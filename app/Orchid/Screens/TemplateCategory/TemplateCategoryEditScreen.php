@@ -28,10 +28,10 @@ class TemplateCategoryEditScreen extends Screen {
      *
      * @return array
      */
-    public function query (TemplateCategory $tc): array {
+    public function query(TemplateCategory $tc): array {
         $this->exists = $tc->exists;
 
-        if ( $this->exists ) {
+        if( $this->exists ) {
             $this->name = 'Edit template category';
         }
 
@@ -43,11 +43,9 @@ class TemplateCategoryEditScreen extends Screen {
      *
      * @return \Orchid\Screen\Action[]
      */
-    public function commandBar (): array {
+    public function commandBar(): array {
         return [
-            Button::make ('Create post')->icon ('pencil')->method ('createOrUpdate')->canSee (!$this->exists),
-
-            Button::make ('Update')->icon ('note')->method ('createOrUpdate')->canSee ($this->exists),
+            Button::make('Save')->icon('save')->method('createOrUpdate'),
         ];
     }
 
@@ -56,16 +54,16 @@ class TemplateCategoryEditScreen extends Screen {
      *
      * @return \Orchid\Screen\Layout[]|string[]
      */
-    public function layout (): array {
+    public function layout(): array {
         return [
             TemplateCategoryEditLayout::class,
         ];
     }
 
-    public function createOrUpdate (TemplateCategory $tc, Request $request) {
-        $tc->fill ($request->get ('tc'))->save ();
-        Alert::info ('You have successfully created/updated a post.');
+    public function createOrUpdate(TemplateCategory $tc, Request $request) {
+        $tc->fill($request->get('tc'))->save();
+        Alert::info('You have successfully created/updated a category.');
 
-        return redirect ()->route ('platform.templates.categories.list');
+        return redirect()->route('platform.templates.categories.list');
     }
 }

@@ -23,41 +23,41 @@ class TemplateEditLayout extends Rows {
      *
      * @return Field[]
      */
-    protected function fields (): array {
-        $template = $this->query->get ('template');
-        $exists = !is_null ($template->id);
+    protected function fields(): array {
+        $template = $this->query->get('template');
+        $exists = !is_null($template->id);
 
         return [
-            Input::make ('template.name')->title ('Name*')->placeholder ('What is the name of this email?'),
+            Input::make('template.name')->title('Name')->placeholder('What is the name of this email?')->required(),
 
-            Input::make ('template.subject')
-                 ->title ('Subject*')
-                 ->placeholder ('The subject of the email')
-                 ->canSee (!$exists || $template->type->name === "Content")
+            Input::make('template.subject')
+                 ->title('Subject')
+                 ->placeholder('The subject of the email')->required()
+                 ->canSee(!$exists || $template->type->name === "Content")
             ,
 
-            Relation::make ('template.type_id')
-                    ->title ('Type*')
-                    ->fromModel (TemplateType::class, 'name')
-                    ->canSee (!$exists),
+            Relation::make('template.type_id')
+                    ->title('Type')
+                    ->fromModel(TemplateType::class, 'name')->required()
+                    ->canSee(!$exists),
 
-            Relation::make ('template.category_id')
-                    ->title ('Category*')
-                    ->fromModel (TemplateCategory::class, 'name'),
+            Relation::make('template.category_id')
+                    ->title('Category')->required()
+                    ->fromModel(TemplateCategory::class, 'name'),
 
-            Relation::make ('template.header_id')
-                    ->canSee (!$exists || $template->type->name === "Content")
-                    ->title ('Header**')
-                    ->help ('Only if is a content')
-                    ->applyScope ('headerList')
-                    ->fromModel (Template::class, 'name'),
+            Relation::make('template.header_id')
+                    ->canSee(!$exists || $template->type->name === "Content")
+                    ->title('Header**')
+                    ->help('Only if is a content')
+                    ->applyScope('headerList')
+                    ->fromModel(Template::class, 'name'),
 
-            Relation::make ('template.footer_id')
-                    ->canSee (!$exists || $template->type->name === "Content")
-                    ->title ('Footer**')
-                    ->help ('Only if is a content')
-                    ->applyScope ('footerList')
-                    ->fromModel (Template::class, 'name'),
+            Relation::make('template.footer_id')
+                    ->canSee(!$exists || $template->type->name === "Content")
+                    ->title('Footer**')
+                    ->help('Only if is a content')
+                    ->applyScope('footerList')
+                    ->fromModel(Template::class, 'name'),
         ];
     }
 }

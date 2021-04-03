@@ -58,7 +58,7 @@ class TemplateEditScreen extends Screen {
      */
     public function commandBar(): array {
         return [
-            Button::make('Create post')->icon('pencil')->method('createOrUpdate')->canSee(!$this->exists),
+            Button::make('Create template')->icon('pencil')->method('createOrUpdate')->canSee(!$this->exists),
 
             Button::make('Update')->icon('note')->method('createOrUpdate')->canSee($this->exists),
             Button::make('Copy')->icon('paste')->method('duplicate')->canSee($this->exists),
@@ -109,7 +109,15 @@ class TemplateEditScreen extends Screen {
 
     public function createOrUpdate(Template $template, Request $request) {
         $template->fill($request->get('template'))->save();
-        Alert::info('You have successfully created/updated a post.');
+
+        if( $request->input('template.attachments') !== null ) {
+            foreach( $request->input('template.attachments') as $attachmentId ) {
+                $attachment = Attachment::find($attachmentId);
+                $attachment->template_id = $template->id;
+                $attachment->save();
+            }
+        }
+        Alert::info('You have successfully created/updated a template.');
 
         return redirect()->route('platform.templates.list', ['type' => $template->type->name]);
     }
@@ -117,7 +125,7 @@ class TemplateEditScreen extends Screen {
     public function remove(Template $template) {
         $template->delete();
 
-        Alert::info('You have successfully deleted the post.');
+        Alert::info('You have successfully deleted the template.');
 
         return redirect()->route('platform.templates.list');
     }

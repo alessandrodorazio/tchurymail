@@ -19,9 +19,9 @@ class TemplateCategoryEditLayout extends Rows {
      *
      * @return Field[]
      */
-    protected function fields (): array {
+    protected function fields(): array {
         return [
-            Input::make ('tc.name')->title ('Name')->placeholder ('Name your category'),
+            Input::make('tc.name')->title('Name')->placeholder('Name your category')->required(),
         ];
     }
 }
