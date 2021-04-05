@@ -26,79 +26,81 @@ use Tabuna\Breadcrumbs\Trail;
 */
 
 // Main
-Route::screen ('/main', PlatformScreen::class)
-     ->name ('platform.main');
+Route::screen('/main', PlatformScreen::class)
+     ->name('platform.main');
 
 // Platform > Profile
-Route::screen ('profile', UserProfileScreen::class)
-     ->name ('platform.profile')
-     ->breadcrumbs (function (Trail $trail) {
+Route::screen('profile', UserProfileScreen::class)
+     ->name('platform.profile')
+     ->breadcrumbs(function(Trail $trail) {
          return $trail
-             ->parent ('platform.index')
-             ->push (__ ('Profile'), route ('platform.profile'));
+             ->parent('platform.index')
+             ->push(__('Profile'), route('platform.profile'));
      });
 
 // Platform > System > Users
-Route::screen ('users/{users}/edit', UserEditScreen::class)
-     ->name ('platform.systems.users.edit')
-     ->breadcrumbs (function (Trail $trail, $user) {
+Route::screen('users/{users}/edit', UserEditScreen::class)
+     ->name('platform.systems.users.edit')
+     ->breadcrumbs(function(Trail $trail, $user) {
          return $trail
-             ->parent ('platform.systems.users')
-             ->push (__ ('Edit'), route ('platform.systems.users.edit', $user));
+             ->parent('platform.systems.users')
+             ->push(__('Edit'), route('platform.systems.users.edit', $user));
      });
 
 // Platform > System > Users > Create
-Route::screen ('users/create', UserEditScreen::class)
-     ->name ('platform.systems.users.create')
-     ->breadcrumbs (function (Trail $trail) {
+Route::screen('users/create', UserEditScreen::class)
+     ->name('platform.systems.users.create')
+     ->breadcrumbs(function(Trail $trail) {
          return $trail
-             ->parent ('platform.systems.users')
-             ->push (__ ('Create'), route ('platform.systems.users.create'));
+             ->parent('platform.systems.users')
+             ->push(__('Create'), route('platform.systems.users.create'));
      });
 
 // Platform > System > Users > User
-Route::screen ('users', UserListScreen::class)
-     ->name ('platform.systems.users')
-     ->breadcrumbs (function (Trail $trail) {
+Route::screen('users', UserListScreen::class)
+     ->name('platform.systems.users')
+     ->breadcrumbs(function(Trail $trail) {
          return $trail
-             ->parent ('platform.systems.index')
-             ->push (__ ('Users'), route ('platform.systems.users'));
+             ->parent('platform.systems.index')
+             ->push(__('Users'), route('platform.systems.users'));
      });
 
 // Platform > System > Roles > Role
-Route::screen ('roles/{roles}/edit', RoleEditScreen::class)
-     ->name ('platform.systems.roles.edit')
-     ->breadcrumbs (function (Trail $trail, $role) {
+Route::screen('roles/{roles}/edit', RoleEditScreen::class)
+     ->name('platform.systems.roles.edit')
+     ->breadcrumbs(function(Trail $trail, $role) {
          return $trail
-             ->parent ('platform.systems.roles')
-             ->push (__ ('Role'), route ('platform.systems.roles.edit', $role));
+             ->parent('platform.systems.roles')
+             ->push(__('Role'), route('platform.systems.roles.edit', $role));
      });
 
 // Platform > System > Roles > Create
-Route::screen ('roles/create', RoleEditScreen::class)
-     ->name ('platform.systems.roles.create')
-     ->breadcrumbs (function (Trail $trail) {
+Route::screen('roles/create', RoleEditScreen::class)
+     ->name('platform.systems.roles.create')
+     ->breadcrumbs(function(Trail $trail) {
          return $trail
-             ->parent ('platform.systems.roles')
-             ->push (__ ('Create'), route ('platform.systems.roles.create'));
+             ->parent('platform.systems.roles')
+             ->push(__('Create'), route('platform.systems.roles.create'));
      });
 
 // Platform > System > Roles
-Route::screen ('roles', RoleListScreen::class)
-     ->name ('platform.systems.roles')
-     ->breadcrumbs (function (Trail $trail) {
+Route::screen('roles', RoleListScreen::class)
+     ->name('platform.systems.roles')
+     ->breadcrumbs(function(Trail $trail) {
          return $trail
-             ->parent ('platform.systems.index')
-             ->push (__ ('Roles'), route ('platform.systems.roles'));
+             ->parent('platform.systems.index')
+             ->push(__('Roles'), route('platform.systems.roles'));
      });
 
 //Route::screen('idea', 'Idea::class','platform.screens.idea');
-Route::screen ('templates', TemplateListScreen::class)->name ('platform.templates.list');
-Route::screen ('template/{template?}', TemplateEditScreen::class)->name ('platform.templates.edit');
+Route::screen('templates', TemplateListScreen::class)->name('platform.templates.list');
+Route::screen('template/{template?}', TemplateEditScreen::class)->name('platform.templates.edit');
 
-Route::screen ('templateCategories', \App\Orchid\Screens\TemplateCategory\TemplateCategoryListScreen::class)
-     ->name ('platform.templates.categories.list');
-Route::screen ('templateCategory/{templateCategory?}', \App\Orchid\Screens\TemplateCategory\TemplateCategoryEditScreen::class)
-     ->name ('platform.templates.categories.edit');
+Route::screen('templateCategories', \App\Orchid\Screens\TemplateCategory\TemplateCategoryListScreen::class)
+     ->name('platform.templates.categories.list');
+Route::screen('templateCategory/{templateCategory?}', \App\Orchid\Screens\TemplateCategory\TemplateCategoryEditScreen::class)
+     ->name('platform.templates.categories.edit');
 
-Route::screen ('emails', EmailHistoryListScreen::class)->name ('platform.emails.list');
+Route::screen('emails', EmailHistoryListScreen::class)->name('platform.emails.list');
+
+Route::screen('storage', \App\Orchid\Screens\Storage\StorageListScreen::class)->name('platform.storage.list');
