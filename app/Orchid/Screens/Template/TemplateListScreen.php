@@ -32,7 +32,7 @@ class TemplateListScreen extends Screen {
      * @return array
      */
     public function query(): array {
-        $templates = Template::with('type', 'category');
+        $templates = Template::filters()->defaultSort('name')->with('type', 'category');
         if( isset($_GET['type']) ) {
             $type = TemplateType::where('name', ucfirst($_GET['type']))->first();
             $templates = $templates->where('type_id', $type->id);

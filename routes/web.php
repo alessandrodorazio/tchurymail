@@ -33,6 +33,10 @@ Route::post('/auth/reset-password', [
     'updatePassword',
 ])->middleware('guest')->name('password.update');
 
+Route::get('/', function() {
+    return "Mailer " . config('app.version');
+});
+
 Route::get('/preview/{uuid}', function($uuid) {
     $email = new Email;
     $template = Template::where('secret_api', $uuid)->first();

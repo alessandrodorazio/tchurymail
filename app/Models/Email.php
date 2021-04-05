@@ -6,16 +6,21 @@ use App\Mail\MailDefault;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
+use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 use ReflectionObject;
 
 class Email extends Model {
-    use AsSource;
+    use AsSource, Filterable;
 
     protected $table = 'email_history';
     protected $fillable = [
         'recipient',
         'template_id',
+    ];
+    protected $allowedSorts = [
+        'recipient',
+        'created_at',
     ];
     protected $hidden = [];
 

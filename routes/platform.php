@@ -3,7 +3,6 @@
 declare( strict_types = 1 );
 
 use App\Orchid\Screens\Email\EmailHistoryListScreen;
-use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\Template\TemplateEditScreen;
@@ -26,7 +25,7 @@ use Tabuna\Breadcrumbs\Trail;
 */
 
 // Main
-Route::screen('/main', PlatformScreen::class)
+Route::screen('/main', TemplateListScreen::class)
      ->name('platform.main');
 
 // Platform > Profile

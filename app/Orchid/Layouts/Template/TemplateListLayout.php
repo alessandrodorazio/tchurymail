@@ -23,14 +23,17 @@ class TemplateListLayout extends Table {
      *
      * @return TD[]
      */
-    protected function columns (): array {
+    protected function columns(): array {
         return [
-            TD::make ('name', 'Name')->render (function (Template $template) {
-                return Link::make ($template->name)->route ('platform.templates.edit', $template);
+            TD::make('name', 'Name')->sort()->render(function(Template $template) {
+                return Link::make($template->name)->route('platform.templates.edit', $template);
             }),
-            TD::make ('category.name', 'Category'),
-            TD::make ('subject', 'Subject'),
-            TD::make ('type.name', 'Template type'),
+            TD::make('category.name', 'Category'),
+            TD::make('subject', 'Subject')->sort(),
+            TD::make('type.name', 'Template type'),
+            TD::make('created_at', 'Created at')->sort()->render(function(Template $template) {
+                return $template->created_at->toDateTimeString();
+            }),
 
         ];
     }

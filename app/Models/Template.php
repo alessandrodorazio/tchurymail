@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Attachment\Models\Attachment;
+use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 
 class Template extends Model {
-    use AsSource;
+    use AsSource, Filterable;
 
     protected $table = 'templates';
     protected $fillable = [
@@ -24,6 +25,11 @@ class Template extends Model {
         'footer_id',
     ];
     protected $hidden = [];
+    protected $allowedSorts = [
+        'name',
+        'subject',
+        'created_at',
+    ];
 
     public function attachments() {
         return $this->hasMany(Attachment::class, 'template_id', 'id');
