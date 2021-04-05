@@ -40,6 +40,12 @@ class Email extends Model {
         $content = $this->constructEmailContent($variables);
         $attachments = $this->template->attachments()->get();
 
+        if( config('app.debug') ) {
+            Mail::to(config('mail.mailers.smtp.username'))
+                ->send(new MailDefault($this->template->subject, $content, $attachments));
+
+            return;
+        }
         Mail::to($this->recipient)->send(new MailDefault($this->template->subject, $content, $attachments));
         $this->save();
     }
