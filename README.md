@@ -31,9 +31,9 @@ template, and through APIs, you can send these emails, written in **MJML**.
 - [x] Recover password
 - [x] Category of template
 - [x] Attachments
-- [ ] Calendars invitation
+- [ ] Email with a click
 - [ ] Automated tests
-- [ ] Upload images
+- [ ] Images management
 
 ### Next major releases
 
@@ -41,6 +41,7 @@ template, and through APIs, you can send these emails, written in **MJML**.
 - [ ] Visual builder
 - [ ] Token permissions
 - [ ] Generate token from admin panel
+- [ ] Calendars invitation
 
 ## Supported tags
 
