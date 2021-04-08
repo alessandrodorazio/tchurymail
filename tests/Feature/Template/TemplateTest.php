@@ -10,7 +10,7 @@ class TemplateTest extends TestCase {
      *
      * @return void
      */
-    public function testTemplateCreate(): string {
+    public function testNewTemplate(): string {
         $templateName = 'TestTemplate' . \Illuminate\Support\Str::random();
         $template = new \App\Models\Template;
         $template->name = $templateName;
@@ -22,9 +22,9 @@ class TemplateTest extends TestCase {
     }
 
     /**
-     * @depends testTemplateCreate
+     * @depends testNewTemplate
      **/
-    public function testTemplateDelete($templateName) {
+    public function testDeleteTemplate($templateName) {
         $template = \App\Models\Template::where('name', $templateName)->first();
         $this->assertNotNull($templateName);
         $template->delete();

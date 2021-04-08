@@ -20,6 +20,15 @@ template, and through APIs, you can send these emails, written in **MJML**.
 2. Create your template
 3. Send via /api/sendEmail/{secret_api}
 
+## Writing mails
+
+It is possible to write email through the admin panel.
+
+### Variables
+
+To add a variable, insert `{{$nameOfTheVariable}}` in the template. When the API is called, pass an object `variables`
+containing the name of the variable as the key.
+
 ## Roadmap to v1.0
 
 - [x] User management
