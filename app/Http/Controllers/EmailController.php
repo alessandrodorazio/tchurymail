@@ -30,16 +30,8 @@ class EmailController extends Controller {
         //validation rules
         $this->validate($request, ['recipient' => 'required|email']);
 
-        //TODO check if it is a content, not header or footer
         $recipient = $request->recipient;
         $template = Template::where('secret_api', $uuid)->firstOrFail();
-        if( $template->type->name === "Header" || $template->type->name === "Footer" ) {
-            $responser = new Responser();
-            $responser->statusCode(500);
-            $responser->message('You cannot send an header or a footer');
-
-            return $responser->response();
-        }
         $template_id = $template->id;
         $variables = json_decode($request->variables);
 
@@ -50,7 +42,7 @@ class EmailController extends Controller {
         try {
             $email->sendEmail($variables);
         } catch( Exception $e ) {
-            return $e;
+            return $e->getMessage();
         }
 
         $responser = new Responser();

@@ -4,7 +4,6 @@ namespace App\Orchid\Screens\Template;
 
 use App\Models\Template;
 use App\Orchid\Layouts\Template\EditCodeLayout;
-use App\Orchid\Layouts\Template\EditHeadLayout;
 use App\Orchid\Layouts\Template\TemplateAttachmentsLayout;
 use App\Orchid\Layouts\Template\TemplateEditLayout;
 use App\Orchid\Layouts\Template\TemplateSecretLayout;
@@ -14,7 +13,6 @@ use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
-use Orchid\Support\Color;
 use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Layout;
 
@@ -47,6 +45,7 @@ class TemplateEditScreen extends Screen {
             $this->description = 'Customize the template';
         }
         $this->template = $template;
+        $template->attachments = $this->template->attachments()->get();
 
         return ['template' => $template];
     }
@@ -80,30 +79,12 @@ class TemplateEditScreen extends Screen {
      */
     public function layout(): array {
         return [
-            Layout::block(TemplateEditLayout::class)
-                  ->title('Template settings')
-                  ->description('Basic informations about the template')
-                  ->commands(Button::make('Save')
-                                   ->type(Color::DEFAULT())
-                                   ->method('createOrUpdate')),
-            Layout::block(EditCodeLayout::class)
-                  ->title('Edit code')
-                  ->description('Write your MJML code easily. <br> Tested tags: <br> - mj-button <br> - mj-carousel <br> -  mj-column <br> -  mj-divider <br> -  mj-hero <br> -  mj-image <br> - mj-section <br> - mj-social <br> -  mj-spacer <br> -  mj-table <br> -  mj-text <br> -  mj-wrapper')
-                  ->commands(Button::make('Save')
-                                   ->type(Color::DEFAULT())
-                                   ->method('createOrUpdate')),
-            Layout::block(EditHeadLayout::class)
-                  ->title('Edit head')
-                  ->description('Add your head tags here. <br> Tested tags: <br> - mj-attributes <br> - mj-font <br> - mj-preview <br> - mj-style <br> - mj-title')
-                  ->commands(Button::make('Save')
-                                   ->type(Color::DEFAULT())
-                                   ->method('createOrUpdate')),
-            Layout::block(TemplateAttachmentsLayout::class)->title('Attachments')->commands(Button::make('Save')
-                                                                                                  ->type(Color::DEFAULT())
-                                                                                                  ->method('uploadAttachments')),
-            Layout::block(TemplateSecretLayout::class)
-                  ->title('Secrets')
-                  ->description('The unique ID of this template'),
+            Layout::blank([
+                              TemplateEditLayout::class,
+                              EditCodeLayout::class,
+                              TemplateAttachmentsLayout::class,
+                              TemplateSecretLayout::class,
+                          ]),
         ];
     }
 
@@ -119,7 +100,7 @@ class TemplateEditScreen extends Screen {
         }
         Alert::info('You have successfully created/updated a template.');
 
-        return redirect()->route('platform.templates.list', ['type' => $template->type->name]);
+        return redirect()->route('platform.templates.edit', ['template' => $template->id]);
     }
 
     public function remove(Template $template) {

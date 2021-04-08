@@ -95,6 +95,9 @@ Route::screen('roles', RoleListScreen::class)
 Route::screen('templates', TemplateListScreen::class)->name('platform.templates.list');
 Route::screen('template/{template?}', TemplateEditScreen::class)->name('platform.templates.edit');
 
+Route::screen('layouts', \App\Orchid\Screens\Layout\LayoutListScreen::class)->name('platform.layouts.list');
+Route::screen('layout/{layout?}', \App\Orchid\Screens\Layout\LayoutEditScreen::class)->name('platform.layouts.edit');
+
 Route::screen('templateCategories', \App\Orchid\Screens\TemplateCategory\TemplateCategoryListScreen::class)
      ->name('platform.templates.categories.list');
 Route::screen('templateCategory/{templateCategory?}', \App\Orchid\Screens\TemplateCategory\TemplateCategoryEditScreen::class)

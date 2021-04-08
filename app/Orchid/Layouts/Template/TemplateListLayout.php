@@ -30,7 +30,6 @@ class TemplateListLayout extends Table {
             }),
             TD::make('category.name', 'Category'),
             TD::make('subject', 'Subject')->sort(),
-            TD::make('type.name', 'Template type'),
             TD::make('created_at', 'Created at')->sort()->render(function(Template $template) {
                 return $template->created_at->toDateTimeString();
             }),

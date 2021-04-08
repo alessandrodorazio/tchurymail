@@ -3,8 +3,8 @@
 namespace App\Orchid;
 
 use App\Models\Email;
+use App\Models\Layout;
 use App\Models\Template;
-use App\Models\TemplateType;
 use Orchid\Platform\Dashboard;
 use Orchid\Platform\ItemMenu;
 use Orchid\Platform\ItemPermission;
@@ -28,35 +28,18 @@ class PlatformProvider extends OrchidServiceProvider {
             ItemMenu::label('Templates')
                     ->icon('monitor')
                     ->title('Templates')
-                    ->route('platform.templates.list', ['type' => 'Content'])
+                    ->route('platform.templates.list')
                     ->badge(function() {
-                        $type = TemplateType::where('name', 'Content')->first();
-
-                        return Template::where('type_id', $type->id)->count();
+                        return Template::count();
                     }, Color::PRIMARY()),
-            ItemMenu::label('Template types')
-                    ->slug('template-types')->icon('folder')
-                    ->withChildren()
-                    ->hideEmpty(),
-            ItemMenu::label('Header')
-                    ->place('template-types')
-                    ->route('platform.templates.list', ['type' => 'Header'])
-                    ->badge(function() {
-                        $type = TemplateType::where('name', 'Header')->first();
-
-                        return Template::where('type_id', $type->id)->count();
-                    }, Color::SECONDARY()),
-            ItemMenu::label('Footer')
-                    ->place('template-types')
-                    ->route('platform.templates.list', ['type' => 'Footer'])
-                    ->badge(function() {
-                        $type = TemplateType::where('name', 'Footer')
-                                            ->first();
-
-                        return Template::where('type_id', $type->id)
-                                       ->count();
-                    }, Color::SECONDARY()),
             ItemMenu::label('Template categories')->icon('directions')->route('platform.templates.categories.list'),
+            ItemMenu::label('Layouts')
+                    ->icon('folder')
+                    ->title('Layouts')
+                    ->route('platform.layouts.list')
+                    ->badge(function() {
+                        return Layout::count();
+                    }, Color::PRIMARY()),
 
             ItemMenu::label('Emails history')
                     ->icon('envelope')

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Mail\MailDefault;
-use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
 use Orchid\Filters\Filterable;
@@ -52,14 +51,14 @@ class Email extends Model {
 
     public function constructEmailContent($variables, $options = []) {
         if( $variables === null ) {
-            throw new Exception('Variables not found');
+            $variables = (object)[];
         }
 
-        $header = $this->template->header;
-        $footer = $this->template->footer;
+        $header = $this->template->layout->header;
+        $footer = $this->template->layout->footer;
         $content =
-            '<mjml><mj-head>' . $this->template->head . '</mj-head><mj-body background-color="#eee">' .
-            $header->content . $this->template->content . $footer->content . '</mj-body></mjml>';
+            '<mjml><mj-head>' . $this->template->layout->head . '</mj-head><mj-body>' .
+            $header . $this->template->content . $footer . '</mj-body></mjml>';
 
         return self::replaceVariablesWithContent($content, $variables, $options);
     }

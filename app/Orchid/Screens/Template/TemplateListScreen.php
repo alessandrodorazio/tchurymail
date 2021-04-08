@@ -4,7 +4,6 @@ namespace App\Orchid\Screens\Template;
 
 use App\Models\Template;
 use App\Models\TemplateCategory;
-use App\Models\TemplateType;
 use App\Orchid\Layouts\Template\TemplateListLayout;
 use Illuminate\Support\Facades\Auth;
 use Orchid\Screen\Action;
@@ -32,11 +31,7 @@ class TemplateListScreen extends Screen {
      * @return array
      */
     public function query(): array {
-        $templates = Template::filters()->defaultSort('name')->with('type', 'category');
-        if( isset($_GET['type']) ) {
-            $type = TemplateType::where('name', ucfirst($_GET['type']))->first();
-            $templates = $templates->where('type_id', $type->id);
-        }
+        $templates = Template::filters()->defaultSort('name')->with('category');
         if( isset($_GET['category']) ) {
             $category = TemplateCategory::where('name', $_GET['category'])->first();
             $templates = $templates->where('category_id', $category->id);

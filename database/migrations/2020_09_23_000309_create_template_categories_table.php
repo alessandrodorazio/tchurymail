@@ -10,11 +10,11 @@ class CreateTemplateCategoriesTable extends Migration {
      *
      * @return void
      */
-    public function up () {
-        Schema::create ('template_categories', function (Blueprint $table) {
-            $table->id ();
-            $table->string ('name');
-            $table->timestamps ();
+    public function up() {
+        Schema::create('template_categories', function(Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
         });
     }
 
@@ -23,7 +23,7 @@ class CreateTemplateCategoriesTable extends Migration {
      *
      * @return void
      */
-    public function down () {
-        Schema::dropIfExists ('template_category');
+    public function down() {
+        Schema::dropIfExists('template_categories');
     }
 }
