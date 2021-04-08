@@ -8,6 +8,7 @@ use App\Orchid\Layouts\Template\TemplateAttachmentsLayout;
 use App\Orchid\Layouts\Template\TemplateEditLayout;
 use App\Orchid\Layouts\Template\TemplateSecretLayout;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Orchid\Attachment\Models\Attachment;
 use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Button;
@@ -90,6 +91,9 @@ class TemplateEditScreen extends Screen {
 
     public function createOrUpdate(Template $template, Request $request) {
         $template->fill($request->get('template'))->save();
+
+        $template->secret_api = Str::uuid();
+        $template->save();
 
         if( $request->input('template.attachments') !== null ) {
             foreach( $request->input('template.attachments') as $attachmentId ) {
