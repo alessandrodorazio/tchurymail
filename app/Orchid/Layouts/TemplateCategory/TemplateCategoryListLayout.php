@@ -23,17 +23,17 @@ class TemplateCategoryListLayout extends Table {
      *
      * @return TD[]
      */
-    protected function columns (): array {
+    protected function columns(): array {
         return [
-            TD::make ('name')->render (function (TemplateCategory $tc) {
-                return Link::make ($tc->name)->route ('platform.templates.categories.edit', $tc);
+            TD::make('name')->render(function(TemplateCategory $tc) {
+                return Link::make($tc->name)->route('platform.templates.categories.edit', $tc);
             }),
-            TD::make ('Number of templates')->render (function (TemplateCategory $tc) {
-                return $tc->templates ()->count ();
+            TD::make('Number of templates')->render(function(TemplateCategory $tc) {
+                return $tc->templates()->count();
             }),
-            TD::make ('')->render (function (TemplateCategory $tc) {
-                return Link::make ('View templates')
-                           ->route ('platform.templates.list', ['category' => $tc->name]);
+            TD::make('')->render(function(TemplateCategory $tc) {
+                return Link::make('View templates')
+                           ->route('platform.templates.list', ['category' => $tc->name]);
             }),
         ];
     }

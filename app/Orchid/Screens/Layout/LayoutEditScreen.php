@@ -5,6 +5,7 @@ namespace App\Orchid\Screens\Layout;
 use App\Models\Layout;
 use App\Orchid\Layouts\Layout\LayoutEditLayout;
 use Illuminate\Http\Request;
+use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Alert;
@@ -45,11 +46,11 @@ class LayoutEditScreen extends Screen {
     /**
      * Button commands.
      *
-     * @return \Orchid\Screen\Action[]
+     * @return Action[]
      */
     public function commandBar(): array {
         return [
-            Button::make('Create layout')->icon('pencil')->method('createOrUpdate')->canSee(!$this->exists),
+            Button::make('Save')->icon('pencil')->method('createOrUpdate')->canSee(!$this->exists),
 
             Button::make('Update')->icon('note')->method('createOrUpdate')->canSee($this->exists),
             Button::make('Copy')->icon('paste')->method('duplicate')->canSee($this->exists),
@@ -74,7 +75,7 @@ class LayoutEditScreen extends Screen {
         $layout->fill($request->get('layout'))->save();
 
         $alertMessage =
-            $layout->exists ? 'You have successfully updated a layout' : 'You have successfully created a layout.';
+            $layout->exists ? 'You have successfully updated the layout' : 'You have successfully created the layout.';
         Alert::info($alertMessage);
 
         return redirect()->route('platform.layouts.edit', ['layout' => $layout->id]);

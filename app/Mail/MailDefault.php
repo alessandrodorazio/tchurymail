@@ -18,7 +18,7 @@ class MailDefault extends Mailable {
      */
     public function __construct($subject, $content, $attachments = []) {
         //
-        $this->subject;
+        $this->subject = $subject;
         if( env('APP_DEBUG') === true ) {
             $this->subject = "DEBUG MAIL: " . $this->subject;
         }

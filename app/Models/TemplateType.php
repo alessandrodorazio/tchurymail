@@ -1,10 +1,10 @@
 <?php
 
-    namespace App\Models;
+namespace App\Models;
 
-    use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
 
-    class TemplateType extends Model {
-        protected $table = 'template_types';
-        protected $fillable = ['name'];
-    }
+class TemplateType extends Model {
+    protected $table = 'template_types';
+    protected $fillable = ['name'];
+}

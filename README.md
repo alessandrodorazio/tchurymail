@@ -52,6 +52,7 @@ containing the name of the variable as the key.
 - [ ] Token permissions
 - [ ] Generate token from admin panel
 - [ ] Calendars invitation
+- [ ] Preview in real time
 
 ## Supported tags
 

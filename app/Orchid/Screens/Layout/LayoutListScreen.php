@@ -4,6 +4,9 @@ namespace App\Orchid\Screens\Layout;
 
 use App\Models\Layout;
 use App\Orchid\Layouts\Layout\LayoutListLayout;
+use Illuminate\Support\Facades\Auth;
+use Orchid\Screen\Action;
+use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
 
 class LayoutListScreen extends Screen {
@@ -34,10 +37,15 @@ class LayoutListScreen extends Screen {
     /**
      * Button commands.
      *
-     * @return \Orchid\Screen\Action[]
+     * @return Action[]
      */
     public function commandBar(): array {
-        return [];
+        return [
+            Link::make('New')
+                ->icon('plus')
+                ->canSee(Auth::user()->hasAccess('platform.templates.manage'))
+                ->route('platform.layouts.edit'),
+        ];
     }
 
     /**

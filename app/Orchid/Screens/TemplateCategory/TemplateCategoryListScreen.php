@@ -5,7 +5,9 @@ namespace App\Orchid\Screens\TemplateCategory;
 use App\Models\TemplateCategory;
 use App\Orchid\Layouts\TemplateCategory\TemplateCategoryListLayout;
 use Illuminate\Support\Facades\Auth;
+use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Link;
+use Orchid\Screen\Layout;
 use Orchid\Screen\Screen;
 
 class TemplateCategoryListScreen extends Screen {
@@ -36,7 +38,7 @@ class TemplateCategoryListScreen extends Screen {
     /**
      * Button commands.
      *
-     * @return \Orchid\Screen\Action[]
+     * @return Action[]
      */
     public function commandBar(): array {
         return [
@@ -50,7 +52,7 @@ class TemplateCategoryListScreen extends Screen {
     /**
      * Views.
      *
-     * @return \Orchid\Screen\Layout[]|string[]
+     * @return Layout[]|string[]
      */
     public function layout(): array {
         return [

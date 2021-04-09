@@ -11,7 +11,7 @@ class TemplateCategory extends Model {
 
     public $fillable = ['name'];
 
-    public function templates () {
-        return $this->hasMany (Template::class, 'category_id', 'id');
+    public function templates() {
+        return $this->hasMany(Template::class, 'category_id', 'id');
     }
 }

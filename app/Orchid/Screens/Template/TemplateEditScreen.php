@@ -4,7 +4,6 @@ namespace App\Orchid\Screens\Template;
 
 use App\Models\Template;
 use App\Orchid\Layouts\Template\EditCodeLayout;
-use App\Orchid\Layouts\Template\TemplateAttachmentsLayout;
 use App\Orchid\Layouts\Template\TemplateEditLayout;
 use App\Orchid\Layouts\Template\TemplateSecretLayout;
 use Illuminate\Http\Request;
@@ -29,7 +28,7 @@ class TemplateEditScreen extends Screen {
      *
      * @var string|null
      */
-    public $description = 'Create a brand-new template for your business';
+    public $description = 'Create a template for your business';
     public $exists = false;
     public $permission = ['platform.templates.manage'];
 
@@ -58,7 +57,7 @@ class TemplateEditScreen extends Screen {
      */
     public function commandBar(): array {
         return [
-            Button::make('Create template')->icon('pencil')->method('createOrUpdate')->canSee(!$this->exists),
+            Button::make('Save')->icon('pencil')->method('createOrUpdate')->canSee(!$this->exists),
 
             Button::make('Update')->icon('note')->method('createOrUpdate')->canSee($this->exists),
             Button::make('Copy')->icon('paste')->method('duplicate')->canSee($this->exists),
@@ -83,7 +82,7 @@ class TemplateEditScreen extends Screen {
             Layout::blank([
                               TemplateEditLayout::class,
                               EditCodeLayout::class,
-                              TemplateAttachmentsLayout::class,
+                              //TemplateAttachmentsLayout::class,
                               TemplateSecretLayout::class,
                           ]),
         ];
@@ -102,7 +101,11 @@ class TemplateEditScreen extends Screen {
                 $attachment->save();
             }
         }
-        Alert::info('You have successfully created/updated a template.');
+
+        $alertMessage =
+            $template->exists ? 'You have successfully updated the template' :
+                'You have successfully created the template.';
+        Alert::info($alertMessage);
 
         return redirect()->route('platform.templates.edit', ['template' => $template->id]);
     }
@@ -134,7 +137,7 @@ class TemplateEditScreen extends Screen {
     public function duplicate(Template $template) {
         $replicate = $template->replicate();
         $replicate->name = $replicate->name . ' copy';
-        $replicate->secret_api = \Illuminate\Support\Str::uuid();
+        $replicate->secret_api = Str::uuid();
         $replicate->save();
 
         return redirect()->route('platform.templates.list');

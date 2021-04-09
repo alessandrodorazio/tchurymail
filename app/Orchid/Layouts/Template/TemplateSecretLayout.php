@@ -19,15 +19,15 @@ class TemplateSecretLayout extends Rows {
      *
      * @return Field[]
      */
-    protected function fields (): array {
-        $template = $this->query->get ('template');
-        $exists = !is_null ($template->id);
+    protected function fields(): array {
+        $template = $this->query->get('template');
+        $exists = !is_null($template->id);
 
         return [
-            Input::make ('template.secret_api')
-                 ->disabled ()
-                 ->title ('🔐 Secret API Key')
-                 ->help ('<strong>Don\'t share this secret with anyone (except your devs)</strong>'),
+            Input::make('template.secret_api')
+                 ->disabled()
+                 ->title('🔐 Secret API Key')
+                 ->help('<strong>Don\'t share this secret with anyone (except your devs)</strong>'),
         ];
     }
 }
