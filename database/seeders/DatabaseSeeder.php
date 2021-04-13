@@ -27,6 +27,12 @@ class DatabaseSeeder extends Seeder {
                                  'password'  => Hash::make('password'),
                                  'api_token' => Str::random(60),
                              ]);
+        $user = User::create([
+                                 'name'      => 'Mail User',
+                                 'email'     => 'mailer@maildomain.com',
+                                 'password'  => Hash::make('password'),
+                                 'api_token' => Str::random(60),
+                             ]);
         shell_exec('php artisan orchid:admin --id=1');
     }
 }

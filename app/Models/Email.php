@@ -38,13 +38,17 @@ class Email extends Model {
     public function sendEmail($variables) {
         $content = $this->constructEmailContent($variables);
         $attachments = $this->template->attachments()->get();
+        $subject = self::replaceVariablesWithContent($this->template->subject, $variables, []);
 
         if( config('app.debug') ) {
+            $subject = "DEBUG MAIL: " . $subject;
             Mail::to(config('mail.mailers.smtp.username'))
-                ->send(new MailDefault($this->template->subject, $content, $attachments));
+                ->send(new MailDefault($subject, $content, $attachments));
+            $this->save();
 
             return;
         }
+
         Mail::to($this->recipient)->send(new MailDefault($this->template->subject, $content, $attachments));
         $this->save();
     }

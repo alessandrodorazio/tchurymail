@@ -91,8 +91,10 @@ class TemplateEditScreen extends Screen {
     public function createOrUpdate(Template $template, Request $request) {
         $template->fill($request->get('template'))->save();
 
-        $template->secret_api = Str::uuid();
-        $template->save();
+        if( !$template->exists ) {
+            $template->secret_api = Str::uuid();
+            $template->save();
+        }
 
         if( $request->input('template.attachments') !== null ) {
             foreach( $request->input('template.attachments') as $attachmentId ) {

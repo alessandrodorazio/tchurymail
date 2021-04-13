@@ -17,6 +17,8 @@ use Orchid\Access\UserSwitch;
 use Orchid\Platform\Models\User;
 use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\ModalToggle;
+use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Screen;
 use Orchid\Support\Color;
 use Orchid\Support\Facades\Layout;
@@ -43,6 +45,7 @@ class UserEditScreen extends Screen {
      * @var User
      */
     private $user;
+    private $token;
 
     /**
      * Query data.
@@ -53,6 +56,7 @@ class UserEditScreen extends Screen {
      */
     public function query(User $user): array {
         $this->user = $user;
+        $this->token = '';
 
         if( !$user->exists ) {
             $this->name = 'Create User';
@@ -73,6 +77,7 @@ class UserEditScreen extends Screen {
      */
     public function commandBar(): array {
         return [
+            ModalToggle::make('Generate API tokens')->modal('API_Token'),
             Button::make(__('Impersonate user'))
                   ->icon('login')
                   ->confirm('You can revert to your original state by logging out.')
@@ -94,7 +99,16 @@ class UserEditScreen extends Screen {
      */
     public function layout(): array {
         return [
+            Layout::modal('API_Token', [
+                Layout::rows([
+                                 Input::make('user.id')->value(function($id) {
+                                     $user = \App\Models\User::find($id);
+                                     $token = $user->createToken('auth:sanctum');
 
+                                     return $token->plainTextToken;
+                                 }),
+                             ]),
+            ])->title('API Token')->withoutCloseButton(),
             Layout::block(UserEditLayout::class)
                   ->title(__('Profile Information'))
                   ->description(__('Update your account\'s profile information and email address.'))
