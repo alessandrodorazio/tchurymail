@@ -71,6 +71,9 @@ class Email extends Model {
         if( array_key_exists("preview", $options) ) {
             $content =
                 str_replace('{{$', '<span style="background-color: #007bff; color: white; padding: 3px;">', $content);
+            $content =
+                str_replace('{{', '<span style="background-color: #007bff; color: white; padding: 3px;">', $content);
+
             $content = str_replace('}}', '</span>', $content);
         }
         $ref = new ReflectionObject($variables);
