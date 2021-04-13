@@ -76,6 +76,7 @@ class Email extends Model {
         $ref = new ReflectionObject($variables);
         foreach( $ref->getProperties() as $prop ) {
             $content = str_replace('{{$' . $prop->getName() . '}}', $prop->getValue($variables), $content);
+            $content = str_replace('{{' . $prop->getName() . '}}', $prop->getValue($variables), $content);
         }
 
         return $content;
