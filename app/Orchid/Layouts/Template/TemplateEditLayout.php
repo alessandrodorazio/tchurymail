@@ -26,6 +26,7 @@ class TemplateEditLayout extends Rows {
         $template = $this->query->get('template');
 
         return [
+            Input::make('template.id')->type('hidden'),
             Input::make('template.name')->title('Name')->placeholder('What is the name of this email?')->required(),
 
             Input::make('template.subject')
