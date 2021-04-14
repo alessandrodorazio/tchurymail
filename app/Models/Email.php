@@ -41,7 +41,6 @@ class Email extends Model {
         $subject = self::replaceVariablesWithContent($this->template->subject, $variables, []);
 
         if( config('app.debug') ) {
-            $subject = "DEBUG MAIL: " . $subject;
             Mail::to(config('mail.mailers.smtp.username'))
                 ->send(new MailDefault($subject, $content, $attachments));
             $this->save();
