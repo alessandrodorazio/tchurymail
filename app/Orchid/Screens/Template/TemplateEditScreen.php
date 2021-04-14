@@ -93,7 +93,7 @@ class TemplateEditScreen extends Screen {
 
         $templateTemp = $request->get('template');
 
-        if( is_null($templateTemp["id"]) ) {
+        if( is_null($templateTemp["secret_api"]) ) {
             $template->secret_api = Str::uuid();
             $template->save();
         }

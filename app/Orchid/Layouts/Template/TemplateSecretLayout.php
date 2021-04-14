@@ -25,7 +25,7 @@ class TemplateSecretLayout extends Rows {
 
         return [
             Input::make('template.secret_api')
-                 ->disabled()
+                 ->readonly()
                  ->title('🔐 Secret API Key')
                  ->help('<strong>Don\'t share this secret with anyone (except your devs)</strong>'),
         ];
