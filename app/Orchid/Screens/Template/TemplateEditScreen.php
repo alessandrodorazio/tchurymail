@@ -14,7 +14,6 @@ use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Alert;
-use Orchid\Support\Facades\Layout;
 
 class TemplateEditScreen extends Screen {
     /**
@@ -79,12 +78,11 @@ class TemplateEditScreen extends Screen {
      */
     public function layout(): array {
         return [
-            Layout::blank([
-                              TemplateEditLayout::class,
-                              EditCodeLayout::class,
-                              //TemplateAttachmentsLayout::class,
-                              TemplateSecretLayout::class,
-                          ]),
+            TemplateEditLayout::class,
+            EditCodeLayout::class,
+            //TemplateAttachmentsLayout::class,
+            TemplateSecretLayout::class,
+
         ];
     }
 

@@ -22,9 +22,16 @@ class Template extends Model {
         'layout_id',
     ];
     protected $hidden = [];
+    protected $allowedFilters = [
+        'name',
+        'subject',
+        'category_id',
+        'created_at',
+    ];
     protected $allowedSorts = [
         'name',
         'subject',
+        'category_id',
         'created_at',
     ];
 
