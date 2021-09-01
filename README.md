@@ -10,10 +10,11 @@ template, and through APIs, you can send these emails, written in **MJML**.
 ## Installation
 
 1. Set mail variables in .env
-2. Run `php artisan migrate --seed`
-3. Run `php artisan storage:link`
-4. Start the server
-5. Do a POST request to /api/login with admin@admin.com / password in order to get the API token
+2. Run `composer install` and `npm install`
+3. Run `php artisan migrate --seed`
+4. Run `php artisan storage:link`
+5. Start the server
+6. Do a POST request to /api/login with admin@admin.com / password in order to get the API token
 
 ## Usage
 

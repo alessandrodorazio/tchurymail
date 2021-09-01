@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function(Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::post('/login', '\App\Http\Controllers\AuthController@login')->name('login');
-
-Route::middleware(['auth:sanctum'])->group(function() {
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/sendEmail/{uuid}', '\App\Http\Controllers\EmailController@sendEmail');
 });
+Route::post('/emails/send/{uuid}', '\App\Http\Controllers\EmailController@sendEmail');

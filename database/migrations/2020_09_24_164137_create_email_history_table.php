@@ -18,7 +18,7 @@ class CreateEmailHistoryTable extends Migration
             $table->string('recipient');
             $table->bigInteger('template_id')->unsigned();
 
-            $table->foreign('template_id')->references('id')->on('templates');
+            $table->foreign('template_id')->references('id')->on('templates')->cascadeOnDelete();
             $table->timestamps();
         });
     }
