@@ -42,7 +42,7 @@ class Email extends Model
         $content = $this->constructEmailContent($variables);
         $attachments = $this->template->attachments()->get();
         $subject = self::replaceVariablesWithContent($this->template->subject, $variables, []);
-
+        sleep(5);
         if (config('app.debug')) {
             Mail::to('test@test.com')->send(new MailDefault($subject, $content, $attachments));
             $this->save();
