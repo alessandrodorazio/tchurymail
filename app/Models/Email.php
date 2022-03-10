@@ -86,11 +86,14 @@ class Email extends Model
 
             $content = str_replace('}}', '</span>', $content);
         }
-        $ref = new ReflectionObject($variables);
-        foreach ($ref->getProperties() as $prop) {
-            $content = str_replace('{{$'.$prop->getName().'}}', $prop->getValue($variables), $content);
-            $content = str_replace('{{'.$prop->getName().'}}', $prop->getValue($variables), $content);
+        if ($variables) {
+            $ref = new ReflectionObject($variables);
+            foreach ($ref->getProperties() as $prop) {
+                $content = str_replace('{{$'.$prop->getName().'}}', $prop->getValue($variables), $content);
+                $content = str_replace('{{'.$prop->getName().'}}', $prop->getValue($variables), $content);
+            }
         }
+
 
         return $content;
     }
