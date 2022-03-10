@@ -16,6 +16,7 @@ return [
     'name' => env('APP_NAME', 'Laravel'),
     'version' => 'v0.1',
     'mail_api_secret' => env('MAIL_API_SECRET', ''),
+    'debug_email' => env('DEBUG_EMAIL', ''),
 
     /*
     |--------------------------------------------------------------------------

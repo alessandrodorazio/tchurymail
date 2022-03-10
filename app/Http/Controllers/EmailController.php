@@ -33,7 +33,7 @@ class EmailController extends Controller
     public function sendEmail(Request $request, $uuid)
     {
         //validation rules
-        $this->validate($request, ['recipient' => 'required|email']);
+        /* $this->validate($request, ['recipient' => 'required|email']); */
         if ($request->secret !== config('app.mail_api_secret')) {
             return;
         }
@@ -45,12 +45,16 @@ class EmailController extends Controller
         } else {
             $variables = (object) [];
         }
+        if ($request->cc) {
+            $cc = $request->cc;
+        } else {
+            $cc = null;
+        }
 
-        Queue::push(new SendMailJob($recipient, $template_id, $variables));
+        Queue::push(new SendMailJob($recipient, $template_id, $variables, $cc));
 
         $responser = new Responser();
         $responser->success()->message('Email dispatched');
-
         return $responser->response();
     }
     //

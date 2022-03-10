@@ -22,6 +22,8 @@ class Email extends Model
     ];
     protected $hidden = [];
 
+    protected $cc = [];
+
     public function setRecipient($recipient)
     {
         $this->recipient = $recipient;
@@ -30,6 +32,11 @@ class Email extends Model
     public function setTemplateId($templateId)
     {
         $this->template_id = $templateId;
+    }
+
+    public function setCc($email)
+    {
+        $this->cc[] = $email;
     }
 
     public function template()
@@ -44,13 +51,13 @@ class Email extends Model
         $subject = self::replaceVariablesWithContent($this->template->subject, $variables, []);
         sleep(5);
         if (config('app.debug')) {
-            Mail::to('test@test.com')->send(new MailDefault($subject, $content, $attachments));
-            $this->save();
-
+            Mail::to(config('app.debug_email'))
+                ->cc($this->cc)
+                ->send(new MailDefault($subject, $content, $attachments));
             return;
         }
 
-        Mail::to($this->recipient)->send(new MailDefault($subject, $content, $attachments));
+        Mail::to($this->recipient)->cc($this->cc)->send(new MailDefault($subject, $content, $attachments));
         $this->save();
     }
 
