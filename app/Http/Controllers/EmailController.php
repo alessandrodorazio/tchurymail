@@ -35,6 +35,7 @@ class EmailController extends Controller
         //validation rules
         /* $this->validate($request, ['recipient' => 'required|email']); */
         if ($request->secret !== config('app.mail_api_secret')) {
+            \Log::info('API secret not valid');
             return;
         }
         $recipient = $request->recipient;
