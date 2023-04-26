@@ -36,7 +36,7 @@ class Email extends Model
 
     public function setCc($email)
     {
-        $this->cc[] = $email;
+        $this->cc = explode(',', $email);
     }
 
     public function template()
